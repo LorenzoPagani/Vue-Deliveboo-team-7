@@ -25,7 +25,7 @@ export default {
 <template>
   <header>
     <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
+      <div class="container-fluid d-flex align-items-center justify-content-around">
         <a class="navbar-brand" href="#"><b>Logo</b></a>
         <!-- <button
           class="navbar-toggler"
@@ -39,14 +39,15 @@ export default {
           <span class="navbar-toggler-icon"></span>
         </button> -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-between w-25">
+          <div class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center justify-content-between w-30">
             
-            <li class="nav-item" v-for="(item, index) in menuItems" :key="index">
-              <router-link :to="{ name: item.routeName }" class="nav-link">
+            <div class="nav-item px-4 mx-4 " v-for="(item, index) in menuItems" :key="index">
+              <router-link :to="{ name: item.routeName }" class="nav-link p-3">
                 {{ item.label }}
               </router-link>
-            </li>
-          </ul>
+            </div>
+          </div>
+
           <!-- <form class="d-flex">
             <input
               class="form-control me-2"
@@ -59,6 +60,9 @@ export default {
             </button>
           </form> -->
          
+        </div>
+        <div>
+          <a class="btn btn-primary" href="http://127.0.0.1:8000/">Accedi all'area ristoratori</a>
         </div>
       </div>
     </nav>
