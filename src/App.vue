@@ -31,8 +31,8 @@ export default {
   methods: {
     getRestaurants() {
       axios.get("http://localhost:8000/api/restaurants").then(risultato => {
-        console.log(risultato.data);
-        this.store.restaurants = risultato.data;
+        console.log(risultato.data.data.restaurants);
+        this.store.restaurants = risultato.data.data.restaurants;
       }).catch(errore => {
         console.error(errore);
       });
@@ -46,7 +46,7 @@ export default {
   <Jumbo />
   <div class="container p-3">
     <div class="d-flex flex-wrap justify-content-between">
-      <div v-for="restaurants in store.restaurants.data" class="card m-2" style="width:18rem;">
+      <div v-for="restaurants in store.restaurants" class="card m-2" style="width:18rem;">
         <img :src="restaurants.picture" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">{{ restaurants.name }}</h5>
