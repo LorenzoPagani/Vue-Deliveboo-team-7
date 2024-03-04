@@ -11,7 +11,7 @@ export default {
   },
   methods: {
     loadRestaurants(event){
-      axios.get("http://localhost:8000/api/restaurants/"+event.target.value).then(risultato => {
+      axios.get("http://localhost:8000/api/restaurants/type/"+event.target.value).then(risultato => {
         console.log(risultato);
         this.store.restaurants = risultato.data.restaurants;
       }).catch(errore => {
