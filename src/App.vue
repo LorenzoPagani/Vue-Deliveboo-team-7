@@ -2,18 +2,16 @@
 // import AppComponent from "./components/AppComponent.vue"
 import MyHeader from "./components/MyHeader.vue";
 
-
 import axios, { all } from "axios"; //importo Axios
 import { store } from "./store.js"; //state management
 import Jumbo from "./components/Jumbo.vue";
-
-
-
+import Cart from "./components/Cart.vue";
 
 export default {
   components: {
     MyHeader,
-    Jumbo
+    Jumbo,
+    Cart,
   },
   data() {
     return {
@@ -31,7 +29,7 @@ export default {
           routeName: "contacts",
           label: "contacts",
         },
-      ]
+      ],
     };
   },
   mounted() {
@@ -45,16 +43,17 @@ export default {
   },
   methods: {
     getRestaurantTypes() {
-      axios.get("http://localhost:8000/api/types").then(risultato => {
-        console.log(risultato);
-        this.store.types = risultato.data.types;
-      }).catch(errore => {
-        console.error(errore);
-      });
-    }
+      axios
+        .get("http://localhost:8000/api/types")
+        .then((risultato) => {
+          console.log(risultato);
+          this.store.types = risultato.data.types;
+        })
+        .catch((errore) => {
+          console.error(errore);
+        });
+    },
   },
-
-
 };
 </script>
 
@@ -62,10 +61,8 @@ export default {
   <MyHeader />
   <Jumbo />
   <router-view></router-view>
-
-  <main>
-
-  </main>
+  <Cart />
+  <main></main>
 </template>
 
 <style lang="scss">

@@ -18,7 +18,19 @@ export default {
         },
       ],
     };
+
   },
+
+  methods:{
+    cartItems(){
+      if(localStorage.getItem("cart")){
+
+        let cart= JSON.parse(localStorage.getItem("cart"));
+        return cart.dishes.length;
+
+      }
+    }
+  }
 };
 </script>
 
@@ -58,7 +70,12 @@ export default {
               Search
             </button>
           </form> -->
-         
+         <button class="btn btn-primary position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-cart" >
+          Cart
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ this.cartItems() }}
+          </span>
+         </button>
         </div>
       </div>
     </nav>
