@@ -3,7 +3,7 @@
 import MyHeader from "./components/MyHeader.vue";
 
 
-import axios from "axios"; //importo Axios
+import axios, { all } from "axios"; //importo Axios
 import { store } from "./store.js"; //state management
 import Jumbo from "./components/Jumbo.vue";
 
@@ -18,20 +18,20 @@ export default {
   data() {
     return {
       store,
-	  menuItems: [
-			{
-				routeName: "home",
-				label: "Homepage",
-			},
-			{
-				routeName: "about",
-				label: "About us",
-			},
-			{
-				routeName: "contacts",
-				label: "contacts",
-			},
-		]
+      menuItems: [
+        {
+          routeName: "home",
+          label: "Homepage",
+        },
+        {
+          routeName: "about",
+          label: "About us",
+        },
+        {
+          routeName: "contacts",
+          label: "contacts",
+        },
+      ]
     };
   },
   mounted() {
@@ -44,6 +44,19 @@ export default {
     // });
   },
   methods: {
+    getRestaurants() {
+      axios.get("http://localhost:8000/api/restaurants")
+        .then(response => {
+          const filteredRestaurants = response.data.data.restaurants.filter(restaurant => {
+            return restaurant.types && restaurant.types.some(type => type.id == this.store.selectedType);
+          });
+          console.log(response.data.data.types);
+          this.store.restaurants = filteredRestaurants;
+          this.store.types = response.data.data.types;
+          console.log(this.store.restaurants);
+        }).catch(errore => {
+          console.error(errore);
+        });
     getRestaurantTypes() {
       axios.get("http://localhost:8000/api/types").then(risultato => {
         console.log(risultato);
@@ -53,14 +66,16 @@ export default {
       });
     },
   },
+
+
 };
 </script>
 
 <template>
   <MyHeader />
-  <Jumbo/>
+  <Jumbo @selectType="getRestaurants" />
   <router-view></router-view>
-  
+
   <main>
 
   </main>

@@ -21,6 +21,7 @@ export default {
   },
 };
 </script>
+
 <template>
   <div class="container-fluid jumbobg position-relative">
     <div class="row d-flex justify-content-center position-absolute top-50 start-50 translate-middle">
@@ -33,6 +34,7 @@ export default {
     </div>
   </div>
 </template>
+
 <style scoped>
 .jumbobg {
   background-image: url("https://t3.ftcdn.net/jpg/02/79/75/74/360_F_279757406_PjHAMPHNAEyf5NvyEYlC7mJNRKHHkmCz.jpg");
