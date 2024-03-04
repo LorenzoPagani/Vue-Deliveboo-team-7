@@ -44,19 +44,6 @@ export default {
     // });
   },
   methods: {
-    getRestaurants() {
-      axios.get("http://localhost:8000/api/restaurants")
-        .then(response => {
-          const filteredRestaurants = response.data.data.restaurants.filter(restaurant => {
-            return restaurant.types && restaurant.types.some(type => type.id == this.store.selectedType);
-          });
-          console.log(response.data.data.types);
-          this.store.restaurants = filteredRestaurants;
-          this.store.types = response.data.data.types;
-          console.log(this.store.restaurants);
-        }).catch(errore => {
-          console.error(errore);
-        });
     getRestaurantTypes() {
       axios.get("http://localhost:8000/api/types").then(risultato => {
         console.log(risultato);
@@ -64,7 +51,7 @@ export default {
       }).catch(errore => {
         console.error(errore);
       });
-    },
+    }
   },
 
 
@@ -73,7 +60,7 @@ export default {
 
 <template>
   <MyHeader />
-  <Jumbo @selectType="getRestaurants" />
+  <Jumbo />
   <router-view></router-view>
 
   <main>
