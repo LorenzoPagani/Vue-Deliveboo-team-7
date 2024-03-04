@@ -20,7 +20,7 @@ export default{
             });
         },
         visible(isVisible){
-            isVisible ? '' : 'greyed';
+            return isVisible ? '' : 'greyed';
         }
     },
     mounted(){
