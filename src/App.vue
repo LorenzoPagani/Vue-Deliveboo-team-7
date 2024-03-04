@@ -14,7 +14,7 @@ export default {
   components: {
     MyHeader,
     Jumbo
-},
+  },
   data() {
     return {
       store,
@@ -35,7 +35,7 @@ export default {
     };
   },
   mounted() {
-    this.doThings();
+    this.getRestaurants();
 
     // axios.get("indirizzo").then(risultato => {
     // 	console.log(risultato);
@@ -44,8 +44,13 @@ export default {
     // });
   },
   methods: {
-    doThings() {
-      console.log("App.vue does things");
+    getRestaurants() {
+      axios.get("http://localhost:8000/api/restaurants").then(risultato => {
+        console.log(risultato.data.data.restaurants);
+        this.store.restaurants = risultato.data.data.restaurants;
+      }).catch(errore => {
+        console.error(errore);
+      });
     },
   },
 };
