@@ -35,7 +35,7 @@ export default {
     };
   },
   mounted() {
-    this.getRestaurants();
+    this.getRestaurantTypes();
 
     // axios.get("indirizzo").then(risultato => {
     // 	console.log(risultato);
@@ -44,10 +44,10 @@ export default {
     // });
   },
   methods: {
-    getRestaurants() {
-      axios.get("http://localhost:8000/api/restaurants").then(risultato => {
-        console.log(risultato.data.data.restaurants);
-        this.store.restaurants = risultato.data.data.restaurants;
+    getRestaurantTypes() {
+      axios.get("http://localhost:8000/api/types").then(risultato => {
+        console.log(risultato);
+        this.store.types = risultato.data.types;
       }).catch(errore => {
         console.error(errore);
       });
