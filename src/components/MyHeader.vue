@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "Header",
+  name: "MyHeader",
   data() {
     return {
       menuItems: [
@@ -13,12 +13,8 @@ export default {
           label: "About us",
         },
         {
-          routeName: "events",
-          label: "Events",
-        },
-        {
-          routeName: "tags",
-          label: "Tags",
+          routeName: "contacts",
+          label: "Contacts",
         },
       ],
     };
@@ -31,7 +27,7 @@ export default {
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"><b>Logo</b></a>
-        <button
+        <!-- <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
@@ -41,17 +37,15 @@ export default {
           aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-between w-25">
-            <a href="#" class="link">HomePage</a>
-            <a href="#" class="link">About us</a>
-            <a href="#" class="link">Contacts</a>
-            <!-- <li class="nav-item" v-for="(item, index) in menuItems" :key="index">
-                            <router-link :to="{ name: item.routeName }" class="nav-link">
-                                {{ item.label }}
-                            </router-link>
-                        </li> -->
+            
+            <li class="nav-item" v-for="(item, index) in menuItems" :key="index">
+              <router-link :to="{ name: item.routeName }" class="nav-link">
+                {{ item.label }}
+              </router-link>
+            </li>
           </ul>
           <!-- <form class="d-flex">
             <input
@@ -78,6 +72,6 @@ export default {
 
 .link{
     text-decoration: none;
-    color: white;
+    color: black;
 }
 </style>

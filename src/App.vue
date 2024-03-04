@@ -1,6 +1,6 @@
 <script>
 // import AppComponent from "./components/AppComponent.vue"
-import Header from "./components/Header.vue";
+import MyHeader from "./components/MyHeader.vue";
 
 
 import axios from "axios"; //importo Axios
@@ -9,14 +9,29 @@ import Jumbo from "./components/Jumbo.vue";
 
 
 
+
 export default {
   components: {
-    Header,
+    MyHeader,
     Jumbo
 },
   data() {
     return {
       store,
+	  menuItems: [
+			{
+				routeName: "home",
+				label: "Homepage",
+			},
+			{
+				routeName: "about",
+				label: "About us",
+			},
+			{
+				routeName: "contacts",
+				label: "contacts",
+			},
+		]
     };
   },
   mounted() {
@@ -37,10 +52,13 @@ export default {
 </script>
 
 <template>
-  <Header/>
+  <MyHeader />
+  <router-view></router-view>
   <Jumbo/>
   
-  <main></main>
+  <main>
+
+  </main>
 </template>
 
 <style lang="scss">
