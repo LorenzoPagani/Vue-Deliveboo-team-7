@@ -20,7 +20,7 @@ export default{
             });
         },
         visible(isVisible){
-            isVisible ? '' : 'greyed';
+            return isVisible ? '' : 'greyed';
         },
         addToCart(dish){
             if(this.store.cart.restaurant && this.store.cart.restaurant !== this.store.restaurant.name){
