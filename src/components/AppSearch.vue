@@ -7,7 +7,8 @@ export default {
   data() {
     return {
       store,
-      text: ""
+      text: "",
+      corresponds: []
     };
   },
   methods: {
@@ -43,6 +44,19 @@ export default {
       else {
         this.loadRestaurants(store.selected_types)
       }
+    },
+    findCorrespondance() {
+      let text = this.text
+      if (text == "") {
+        return
+      }
+      let corresponds = []
+      this.store.types.forEach(function (type, index) {
+        if (type.name.includes(text)) {
+          corresponds.push(type)
+        }
+      })
+      this.corresponds = corresponds
     }
   }
 };
@@ -64,7 +78,13 @@ export default {
         <span class="input-group-text" id="inputGroup-sizing-default">Restaurant Types</span>
       </div>
       <input type="text" class="form-control" name="types" id="search-type" v-model="this.text"
-        aria-describedby="inputGroup-sizing-default" v-on:keyup.enter="searchType(); this.text = ''">
+        aria-describedby="inputGroup-sizing-default" v-on:keyup.enter="searchType(); this.text = ''"
+        v-on:input="findCorrespondance()">
+    </div>
+    <div class="suggestions">
+      <a v-for="item in this.corresponds" href="#"
+        @click.prevent:="this.store.selected_types.push(item); loadRestaurants(this.store.selected_types)">{{
+        item.name }}</a>
     </div>
   </div>
 </template>
@@ -83,5 +103,11 @@ export default {
 .selected-types {
   display: flex;
   flex-direction: row;
+}
+
+.suggestions {
+  a {
+    display: block;
+  }
 }
 </style>
