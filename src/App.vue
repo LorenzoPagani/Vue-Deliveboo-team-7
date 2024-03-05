@@ -6,13 +6,15 @@ import axios, { all } from "axios"; //importo Axios
 import { store } from "./store.js"; //state management
 import Jumbo from "./components/Jumbo.vue";
 import Cart from "./components/Cart.vue";
+import Notification from "./components/Notification.vue";
 
 export default {
   components: {
     MyHeader,
     Jumbo,
     Cart,
-  },
+    Notification
+},
   data() {
     return {
       store,
@@ -58,6 +60,7 @@ export default {
 </script>
 
 <template>
+  <Notification/>
   <MyHeader />
   <Jumbo />
   <router-view></router-view>
