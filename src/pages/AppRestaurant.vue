@@ -21,10 +21,43 @@ export default{
         },
         visible(isVisible){
             isVisible ? '' : 'greyed';
+        },
+        addToCart(dish){
+            if(this.store.cart.restaurant && this.store.cart.restaurant !== this.store.restaurant.name){
+                alert("Esiste già un ordine per un altro ristorante");
+                return; 
+            }
+            if(this.store.cart.restaurant){
+                const newDish = {
+                    id : dish.id, 
+                    nome : dish.name, 
+                    prezzo : dish.price, 
+                    quantity : 1
+                };
+                this.store.cart.dishes.push(newDish);
+                localStorage.setItem('cart', JSON.stringify(this.store.cart));
+            }else{
+                //create restaurant
+                const newCart = {
+                    restaurant : this.store.restaurant.name, 
+                    dishes : [
+                        {
+                            id : dish.id,
+                            nome : dish.name, 
+                            prezzo : dish.price, 
+                            quantity : 1
+                        }
+                    ]
+                }
+                this.store.cart = newCart; 
+                localStorage.setItem('cart',JSON.stringify(newCart));
+            }
         }
     },
     mounted(){
         this.getRestaurantInfo(this.$route.params.id)
+        this.store.cart = JSON.parse(localStorage.getItem("cart")) || {};
+        console.log(this.store.cart)
     }
 }
 </script>
@@ -52,7 +85,7 @@ export default{
                     <td>{{ dish.description }}</td>
                     <td>{{ dish.ingredients }}</td>
                     <td>€ {{ dish.price }}</td>
-                    <td><button type="button" class="btn btn-primary" :disabled="dish.visible == 0">+</button></td>
+                    <td><button type="button" class="btn btn-primary" :disabled="dish.visible == 0" @click="addToCart(dish)">+</button></td>
                     </tr>
                 </tbody>
                 </table>

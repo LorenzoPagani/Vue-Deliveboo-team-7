@@ -1,8 +1,10 @@
 <script>
+import { store } from '../store';
 export default {
   name: "MyHeader",
   data() {
     return {
+      store,
       menuItems: [
         {
           routeName: "home",
@@ -23,9 +25,9 @@ export default {
 
   methods:{
     cartItems(){
-      if(localStorage.getItem("cart")){
+      if(this.store.cart && this.store.cart.restaurant){
 
-        let cart= JSON.parse(localStorage.getItem("cart"));
+        let cart= this.store.cart;
         return cart.dishes.length;
 
       }

@@ -1,8 +1,14 @@
 <script>
+import { store } from '../store';
 export default {
   name: "Cart",
+  data() {
+        return {
+            store
+        }
+    },
 
-  methods: {
+    methods:{
     checkCart() {
       return localStorage.getItem("cart");
     },
@@ -30,14 +36,24 @@ export default {
         let newCart = cart.dishes.filter(dish =>{
             return dish.id !== id
         })
-        cart.dishes = newCart;
 
+        cart.dishes = newCart;
+        if(cart.dishes.length == 0){
+            localStorage.removeItem('cart');
+            this.store.cart = {};
+            return;
+        }
+        this.store.cart = cart;
         localStorage.setItem("cart",JSON.stringify(cart));
+    },
+    emptyCart(){
+        localStorage.removeItem('cart');
+        this.store.cart = {};
+        return;
     }
   },
 
   mounted() {
-    console.log(this.getCart());
   },
 };
 </script>
@@ -58,11 +74,10 @@ export default {
       ></button>
     </div>
     <div class="offcanvas-body">
-      <div v-if="this.checkCart()">
-        <h5>{{ this.getCart().restaurant }}</h5>
+      <div v-if="store.cart.restaurant">
+        <h5>{{ store.cart.restaurant }}</h5>
         <table class="table table-striped text-center">
           <thead>
-            
             <tr>
               <th scope="col">Dish</th>
               <th scope="col">Price</th>
@@ -71,7 +86,7 @@ export default {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in getCart().dishes">
+            <tr v-for="item in store.cart.dishes">
               <td>{{ item.nome }}</td>
               <td>{{ item.prezzo }}</td>
               <td>{{ item.quantity }}</td>
@@ -87,27 +102,13 @@ export default {
       </div>
       <div v-else>Cart is empty!</div>
     </div>
+
+    <div class="mb-2 ms-2" v-if="store.cart.restaurant">
+        <button class="btn btn-danger" @click="emptyCart()">
+            Svuota carrello
+        </button>
+    </div>
   </div>
 </template>
 <style scoped></style>
 
-<!-- {
-    "restaurant": "Pizzeria da Luigi",
-    "dishes":[
-    {
-        "nome": "Pizza Margherita",
-        "prezzo": 6.00,
-        "quantity": 1
-    },
-    {
-        "nome": "Pizza Capricciosa",
-        "prezzo": 6.00,
-        "quantity": 2
-    },
-    {
-        "nome": "Pizza Quattro Stagioni",
-        "prezzo": 6.00,
-        "quantity": 1
-    }
-    ]
-} -->
