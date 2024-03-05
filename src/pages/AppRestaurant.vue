@@ -2,67 +2,88 @@
 
 import axios from "axios"; //importo Axios
 import { store } from "../store.js"
+import Modal from "../components/Modal.vue";
 
 export default{
     name: "AppRestaurant",
+
+    components:{
+        Modal
+    },
+
     data() {
         return {
             store,
         };
     },
     methods: {
-        getRestaurantInfo(restaurant_id){
-            axios.get("http://localhost:8000/api/restaurant/"+restaurant_id).then(risultato => {
+        getRestaurantInfo(restaurant_id) {
+            axios.get("http://localhost:8000/api/restaurant/" + restaurant_id).then(risultato => {
                 console.log(risultato);
-                this.store.restaurant = risultato.data.restaurant
+                this.store.restaurant = risultato.data.restaurant;
             }).catch(errore => {
                 console.error(errore);
             });
         },
-        visible(isVisible){
+        visible(isVisible) {
             return isVisible ? '' : 'greyed';
         },
-        addToCart(dish){
-            if(this.store.cart.restaurant && this.store.cart.restaurant !== this.store.restaurant.name){
-                alert("Esiste già un ordine per un altro ristorante");
-                return; 
+        addToCart(dish) {
+            if (this.store.cart.restaurant && this.store.cart.restaurant !== this.store.restaurant.name) {
+                //alert("Esiste già un ordine per un altro ristorante");
+                store.showModal = true;
+                return;
             }
-            if(this.store.cart.restaurant){
+            if (this.store.cart.restaurant) {
+                const existingDishIndex = this.store.cart.dishes.findIndex(item => item.id === dish.id);
+                console.log(existingDishIndex)
+                if (existingDishIndex !== -1) {
+                    this.store.cart.dishes[existingDishIndex].quantity += dish.quantity;
+                    return;
+                }
                 const newDish = {
-                    id : dish.id, 
-                    nome : dish.name, 
-                    prezzo : dish.price, 
-                    quantity : 1
+                    id: dish.id,
+                    nome: dish.name,
+                    prezzo: dish.price,
+                    quantity: dish.quantity
                 };
+
                 this.store.cart.dishes.push(newDish);
                 localStorage.setItem('cart', JSON.stringify(this.store.cart));
-            }else{
+            }
+            else {
                 //create restaurant
                 const newCart = {
-                    restaurant : this.store.restaurant.name, 
-                    dishes : [
+                    restaurant: this.store.restaurant.name,
+                    dishes: [
                         {
-                            id : dish.id,
-                            nome : dish.name, 
-                            prezzo : dish.price, 
-                            quantity : 1
+                            id: dish.id,
+                            nome: dish.name,
+                            prezzo: dish.price,
+                            quantity: dish.quantity
                         }
                     ]
-                }
-                this.store.cart = newCart; 
-                localStorage.setItem('cart',JSON.stringify(newCart));
+                };
+                this.store.cart = newCart;
+                localStorage.setItem('cart', JSON.stringify(newCart));
             }
+            this.store.showNotification = true;
+            setTimeout(() => {
+                this.store.showNotification = false;
+            }, 3000);
         }
     },
-    mounted(){
-        this.getRestaurantInfo(this.$route.params.id)
+    mounted() {
+        this.getRestaurantInfo(this.$route.params.id);
         this.store.cart = JSON.parse(localStorage.getItem("cart")) || {};
-        console.log(this.store.cart)
-    }
+        console.log(this.store.cart);
+    },
+    components: { Modal }
 }
 </script>
 
 <template>
+
     <div class="container">
         <div class="row">
             <div class="col-md-12 mt-3">
@@ -88,13 +109,15 @@ export default{
                     <td>{{ dish.description }}</td>
                     <td>{{ dish.ingredients }}</td>
                     <td>€ {{ dish.price }}</td>
-                    <td><button type="button" class="btn btn-primary" :disabled="dish.visible == 0" @click="addToCart(dish)">+</button></td>
+                    <td><input  type="number" min="1" value="1" v-model="dish.quantity" required>Quantity</td>
+                    <td><button type="button" class="btn btn-success" :disabled="dish.visible == 0" @click="addToCart(dish)">Aggiungi</button></td>
                     </tr>
                 </tbody>
                 </table>
             </div>
         </div>
     </div>
+    <Modal></Modal>
 </template>
 <style scoped>
 h1{color: black;}

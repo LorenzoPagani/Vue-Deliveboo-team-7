@@ -22,7 +22,10 @@ export default {
     getTotal(){
         let tot= 0;
 
-        this.getCart().dishes.forEach(dish => {
+        if(!this.store.cart.dishes){
+          return; 
+        }
+        this.store.cart.dishes.forEach(dish => {
             tot += (dish.prezzo * dish.quantity);
 
         });
@@ -50,6 +53,13 @@ export default {
         localStorage.removeItem('cart');
         this.store.cart = {};
         return;
+    },
+    updateCart(item){
+      if(item.quantity == 0){
+        this.deleteItem(item.id)
+      }
+
+      this.getTotal()
     }
   },
 
@@ -89,7 +99,7 @@ export default {
             <tr v-for="item in store.cart.dishes">
               <td>{{ item.nome }}</td>
               <td>{{ item.prezzo }}</td>
-              <td>{{ item.quantity }}</td>
+              <td><input class="form-control" type="number" min="0" v-model="item.quantity" @change="updateCart(item)"></td>
               <td>
                 <button class="btn btn-danger" @click="deleteItem(item.id)">
                   <i class="fa fa-trash"></i>

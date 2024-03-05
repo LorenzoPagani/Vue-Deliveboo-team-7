@@ -5,5 +5,7 @@ export const store = reactive({
   restaurants: "",
   restaurant: "",
   cart: "",
+  showModal : false,
+  showNotification : false,
   selected_types: []
 })
