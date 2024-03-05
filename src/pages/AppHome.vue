@@ -38,7 +38,8 @@ export default {
             <div class="container p-3">
                 <div class="d-flex flex-wrap justify-content-evenly">
                     <router-link v-for="restaurants in store.restaurants" :to="{ name: 'restaurant', params: { id: restaurants.id } }" class="card m-2" style="width:18rem;">
-                        <img :src="'http://localhost:8000/storage/'+restaurants.picture" class="card-img-top" alt="...">
+                        <img v-if="!restaurants.picture.includes('https')" :src="'http://localhost:8000/storage/'+restaurants.picture" class="card-img-top" alt="...">
+                        <img v-else :src="restaurants.picture" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ restaurants.name }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted ">{{ restaurants.address }}</h6>
