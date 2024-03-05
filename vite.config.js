@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/

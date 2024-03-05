@@ -4,5 +4,6 @@ export const store = reactive({
   types: '',
   restaurants: "",
   restaurant: "",
-  cart : ""
+  cart: "",
+  selected_types: []
 })
