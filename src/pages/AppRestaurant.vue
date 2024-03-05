@@ -81,7 +81,10 @@ export default{
                 <tbody>
                     <tr v-for="dish in this.store.restaurant.dishes" :class="visible(dish.visible)">
                     <td>{{ dish.name }}</td>
-                    <td><img class="dish-img" :src="'http://localhost:8000/storage/' + dish.picture" alt=""></td>
+                    <td>
+                        <img v-if="!dish.picture.includes('http')" class="dish-img" :src="'http://localhost:8000/storage/' + dish.picture" alt="">
+                        <img v-else class="dish-img" :src="dish.picture" alt="">
+                    </td>
                     <td>{{ dish.description }}</td>
                     <td>{{ dish.ingredients }}</td>
                     <td>€ {{ dish.price }}</td>
