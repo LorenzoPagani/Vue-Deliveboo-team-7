@@ -5,7 +5,7 @@ import AppSearch from "./AppSearch.vue";
 
 export default {
   name: "Jumbo",
-  components:{
+  components: {
     AppSearch
   },
   data() {
