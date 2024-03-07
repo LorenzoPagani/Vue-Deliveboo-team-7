@@ -14,7 +14,7 @@ export default {
     Jumbo,
     Cart,
     Notification
-},
+  },
   data() {
     return {
       store,
@@ -48,7 +48,7 @@ export default {
       axios
         .get("http://localhost:8000/api/types")
         .then((risultato) => {
-          console.log(risultato);
+          /* console.log(risultato); */
           this.store.types = risultato.data.types;
         })
         .catch((errore) => {
@@ -60,7 +60,7 @@ export default {
 </script>
 
 <template>
-  <Notification/>
+  <Notification />
   <MyHeader />
   <Jumbo />
   <router-view></router-view>

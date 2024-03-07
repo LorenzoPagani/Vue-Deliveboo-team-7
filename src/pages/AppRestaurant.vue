@@ -22,6 +22,9 @@ export default {
             axios.get("http://localhost:8000/api/restaurant/" + restaurant_id).then(risultato => {
                 console.log(risultato);
                 this.store.restaurant = risultato.data.restaurant;
+                this.store.restaurant.dishes.forEach(element => {
+                    element.quantity = 1
+                });
             }).catch(errore => {
                 console.error(errore);
             });
