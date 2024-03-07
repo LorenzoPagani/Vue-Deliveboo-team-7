@@ -3,12 +3,12 @@ import { store } from '../store';
 export default {
   name: "Cart",
   data() {
-        return {
-            store
-        }
-    },
+    return {
+      store
+    }
+  },
 
-    methods:{
+  methods: {
     checkCart() {
       return localStorage.getItem("cart");
     },
@@ -19,43 +19,43 @@ export default {
       }
     },
 
-    getTotal(){
-        let tot= 0;
+    getTotal() {
+      let tot = 0;
 
-        if(!this.store.cart.dishes){
-          return; 
-        }
-        this.store.cart.dishes.forEach(dish => {
-            tot += (dish.prezzo * dish.quantity);
+      if (!this.store.cart.dishes) {
+        return;
+      }
+      this.store.cart.dishes.forEach(dish => {
+        tot += (dish.prezzo * dish.quantity);
 
-        });
-        return tot.toFixed(2)
+      });
+      return tot.toFixed(2)
 
     },
 
-    deleteItem(id){
+    deleteItem(id) {
 
-        let cart = this.getCart();
-        let newCart = cart.dishes.filter(dish =>{
-            return dish.id !== id
-        })
+      let cart = this.getCart();
+      let newCart = cart.dishes.filter(dish => {
+        return dish.id !== id
+      })
 
-        cart.dishes = newCart;
-        if(cart.dishes.length == 0){
-            localStorage.removeItem('cart');
-            this.store.cart = {};
-            return;
-        }
-        this.store.cart = cart;
-        localStorage.setItem("cart",JSON.stringify(cart));
-    },
-    emptyCart(){
+      cart.dishes = newCart;
+      if (cart.dishes.length == 0) {
         localStorage.removeItem('cart');
         this.store.cart = {};
         return;
+      }
+      this.store.cart = cart;
+      localStorage.setItem("cart", JSON.stringify(cart));
     },
-    updateCart(item){
-      if(item.quantity == 0){
+    emptyCart() {
+      localStorage.removeItem('cart');
+      this.store.cart = {};
+      return;
+    },
+    updateCart(item) {
+      if (item.quantity == 0) {
         this.deleteItem(item.id)
       }
 
@@ -68,24 +68,14 @@ export default {
 };
 </script>
 <template>
-  <div
-    class="offcanvas offcanvas-end"
-    tabindex="-1"
-    id="offcanvas-cart"
-    aria-labelledby="offcanvasLabel"
-  >
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-cart" aria-labelledby="offcanvasLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasLabel">Cart</h5>
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="offcanvas"
-        aria-label="Close"
-      ></button>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
       <div v-if="store.cart.restaurant">
-        <h5>{{ store.cart.restaurant }}</h5>
+        <h5>{{ store.cart.restaurant.name }}</h5>
         <table class="table table-striped text-center">
           <thead>
             <tr>
@@ -114,9 +104,9 @@ export default {
     </div>
 
     <div class="mb-2 ms-2" v-if="store.cart.restaurant">
-        <button class="btn btn-danger" @click="emptyCart()">
-            Svuota carrello
-        </button>
+      <button class="btn btn-danger" @click="emptyCart()">
+        Svuota carrello
+      </button>
     </div>
   </div>
 </template>

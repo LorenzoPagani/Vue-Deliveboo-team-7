@@ -2,16 +2,10 @@
 
 import axios from "axios"; //importo Axios
 import { store } from "../store.js"
-import Modal from "../components/Modal.vue";
 import { RouterLink } from "vue-router";
 
 export default {
-    name: "AppRestaurant",
-
-    components: {
-        Modal
-    },
-
+    name: "AppCheckout",
     data() {
         return {
             store,
@@ -30,7 +24,7 @@ export default {
             return isVisible ? '' : 'greyed';
         },
         addToCart(dish) {
-            if (this.store.cart.restaurant && this.store.cart.restaurant.name !== this.store.restaurant.name) {
+            if (this.store.cart.restaurant && this.store.cart.restaurant !== this.store.restaurant.name) {
                 //alert("Esiste già un ordine per un altro ristorante");
                 store.showModal = true;
                 return;
@@ -46,7 +40,7 @@ export default {
                     id: dish.id,
                     nome: dish.name,
                     prezzo: dish.price,
-                    quantity: 1
+                    quantity: dish.quantity
                 };
 
                 this.store.cart.dishes.push(newDish);
@@ -55,16 +49,13 @@ export default {
             else {
                 //create restaurant
                 const newCart = {
-                    restaurant: {
-                        name: this.store.restaurant.name,
-                        id: this.store.restaurant.id
-                    },
+                    restaurant: this.store.restaurant.name,
                     dishes: [
                         {
                             id: dish.id,
                             nome: dish.name,
                             prezzo: dish.price,
-                            quantity: 1
+                            quantity: dish.quantity
                         }
                     ]
                 };
@@ -82,7 +73,6 @@ export default {
         this.store.cart = JSON.parse(localStorage.getItem("cart")) || {};
         console.log(this.store.cart);
     },
-    components: { Modal }
 }
 </script>
 
@@ -92,35 +82,29 @@ export default {
         <div class="row">
             <div class="col-md-12 mt-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h1>Dishes of {{ this.store.restaurant.name }}</h1>
+                    <h1>Checkout</h1>
                     <router-link :to="{ name: 'home' }" style="width:18rem;">Back to restaurants</router-link>
                 </div>
 
-                <table class="table table-borderless">
-                <thead> 
-                    <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Picture</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Ingredients</th>
-                    <th scope="col">Price</th>
-                    <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="dish in this.store.restaurant.dishes" :class="visible(dish.visible)">
-                    <td>{{ dish.name }}</td>
-                    <td>
-                        <img v-if="!dish.picture.includes('http')" class="dish-img" :src="'http://localhost:8000/storage/' + dish.picture" alt="">
-                        <img v-else class="dish-img" :src="dish.picture" alt="">
-                    </td>
-                    <td>{{ dish.description }}</td>
-                    <td>{{ dish.ingredients }}</td>
-                    <td>€ {{ dish.price }}</td>
-                    <td><button type="button" class="btn btn-success" :disabled="dish.visible == 0" @click="addToCart(dish)">Aggiungi al carrello</button></td>
-                    </tr>
-                </tbody>
-                </table>
+                <form>
+                    <div class="form-group">
+                        <label class="text-black" for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label class="text-black" for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email address">
+                    </div>
+                    <div class="form-group">
+                        <label class="text-black" for="address">Address</label>
+                        <input type="text" class="form-control" id="address"
+                            placeholder="Enter the address to deliver the order">
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
     </div>
