@@ -3,11 +3,12 @@
 import axios from "axios"; //importo Axios
 import { store } from "../store.js"
 import Modal from "../components/Modal.vue";
+import { RouterLink } from "vue-router";
 
-export default{
+export default {
     name: "AppRestaurant",
 
-    components:{
+    components: {
         Modal
     },
 
@@ -87,32 +88,38 @@ export default{
     <div class="container">
         <div class="row">
             <div class="col-md-12 mt-3">
-                <h1>Dishes of {{ this.store.restaurant.name }}</h1>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1>Dishes of {{ this.store.restaurant.name }}</h1>
+                    <router-link :to="{ name: 'home' }" style="width:18rem;">Back to restaurants</router-link>
+                </div>
+
                 <table class="table table-borderless">
-                <thead>
-                    <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Picture</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Ingredients</th>
-                    <th scope="col">Price</th>
-                    <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="dish in this.store.restaurant.dishes" :class="visible(dish.visible)">
-                    <td>{{ dish.name }}</td>
-                    <td>
-                        <img v-if="!dish.picture.includes('http')" class="dish-img" :src="'http://localhost:8000/storage/' + dish.picture" alt="">
-                        <img v-else class="dish-img" :src="dish.picture" alt="">
-                    </td>
-                    <td>{{ dish.description }}</td>
-                    <td>{{ dish.ingredients }}</td>
-                    <td>€ {{ dish.price }}</td>
-                    <td><input  type="number" min="1" value="1" v-model="dish.quantity" required>Quantity</td>
-                    <td><button type="button" class="btn btn-success" :disabled="dish.visible == 0" @click="addToCart(dish)">Aggiungi</button></td>
-                    </tr>
-                </tbody>
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Picture</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Ingredients</th>
+                            <th scope="col">Price</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="dish in this.store.restaurant.dishes" :class="visible(dish.visible)">
+                            <td>{{ dish.name }}</td>
+                            <td>
+                                <img v-if="!dish.picture.includes('http')" class="dish-img"
+                                    :src="'http://localhost:8000/storage/' + dish.picture" alt="">
+                                <img v-else class="dish-img" :src="dish.picture" alt="">
+                            </td>
+                            <td>{{ dish.description }}</td>
+                            <td>{{ dish.ingredients }}</td>
+                            <td>€ {{ dish.price }}</td>
+                            <td><input type="number" min="1" value="1" v-model="dish.quantity" required>Quantity</td>
+                            <td><button type="button" class="btn btn-success" :disabled="dish.visible == 0"
+                                    @click="addToCart(dish)">Aggiungi</button></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -120,14 +127,19 @@ export default{
     <Modal></Modal>
 </template>
 <style scoped>
-h1{color: black;}
-p{color: black;}
+h1 {
+    color: black;
+}
 
-.dish-img{
+p {
+    color: black;
+}
+
+.dish-img {
     width: 100px;
 }
 
-.greyed{
+.greyed {
     opacity: 50%;
 }
 </style>
