@@ -18,10 +18,6 @@ export default {
         types.push(type.id)
       })
       console.log(types)
-      axios.interceptors.request.use(request => {
-        console.log('Starting Request', JSON.stringify(request, null, 2))
-        return request
-      })
       axios.get("http://localhost:8000/api/restaurants/types", { params: { "types": types } }).then(risultato => {
         console.log(risultato);
         this.store.restaurants = risultato.data.restaurants;

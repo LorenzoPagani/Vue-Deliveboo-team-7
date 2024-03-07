@@ -23,15 +23,19 @@ export default {
 
   },
 
-  methods:{
-    cartItems(){
-      if(this.store.cart && this.store.cart.restaurant){
+  methods: {
+    cartItems() {
+      if (this.store.cart && this.store.cart.restaurant) {
 
-        let cart= this.store.cart;
+        let cart = this.store.cart;
         return cart.dishes.length;
 
       }
     }
+  },
+  mounted() {
+    this.store.cart = JSON.parse(localStorage.getItem("cart")) || {};
+    console.log(this.store.cart);
   }
 };
 </script>
@@ -54,7 +58,7 @@ export default {
         </button> -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <div class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center justify-content-between w-30">
-            
+
             <div class="nav-item px-4 mx-4 " v-for="(item, index) in menuItems" :key="index">
               <router-link :to="{ name: item.routeName }" class="nav-link p-3">
                 {{ item.label }}
@@ -73,12 +77,13 @@ export default {
               Search
             </button>
           </form> -->
-         <button class="btn btn-primary position-relative me-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-cart" >
-          Cart
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            {{ this.cartItems() }}
-          </span>
-         </button>
+          <button class="btn btn-primary position-relative me-2" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvas-cart">
+            Cart
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              {{ this.cartItems() }}
+            </span>
+          </button>
         </div>
         <div>
           <a class="btn btn-primary" href="http://127.0.0.1:8000/">Accedi all'area ristoratori</a>
@@ -93,8 +98,8 @@ export default {
   background-color: #feb836;
 }
 
-.link{
-    text-decoration: none;
-    color: black;
+.link {
+  text-decoration: none;
+  color: black;
 }
 </style>

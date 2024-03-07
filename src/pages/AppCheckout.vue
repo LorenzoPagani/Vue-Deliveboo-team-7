@@ -9,69 +9,67 @@ export default {
     data() {
         return {
             store,
+            total: 0.0
         };
     },
     methods: {
-        getRestaurantInfo(restaurant_id) {
-            axios.get("http://localhost:8000/api/restaurant/" + restaurant_id).then(risultato => {
-                console.log(risultato);
-                this.store.restaurant = risultato.data.restaurant;
-            }).catch(errore => {
-                console.error(errore);
-            });
-        },
-        visible(isVisible) {
-            return isVisible ? '' : 'greyed';
-        },
-        addToCart(dish) {
-            if (this.store.cart.restaurant && this.store.cart.restaurant !== this.store.restaurant.name) {
-                //alert("Esiste già un ordine per un altro ristorante");
-                store.showModal = true;
+        getTotal() {
+            let tot = 0;
+
+            if (!this.store.cart.dishes) {
                 return;
             }
-            if (this.store.cart.restaurant) {
-                const existingDishIndex = this.store.cart.dishes.findIndex(item => item.id === dish.id);
-                console.log(existingDishIndex)
-                if (existingDishIndex !== -1) {
-                    this.store.cart.dishes[existingDishIndex].quantity += dish.quantity;
-                    return;
-                }
-                const newDish = {
-                    id: dish.id,
-                    nome: dish.name,
-                    prezzo: dish.price,
-                    quantity: dish.quantity
-                };
+            this.store.cart.dishes.forEach(dish => {
+                tot += (dish.prezzo * dish.quantity);
 
-                this.store.cart.dishes.push(newDish);
-                localStorage.setItem('cart', JSON.stringify(this.store.cart));
+            });
+            return tot.toFixed(2)
+        },
+        closeOffCanvas() {
+            const close_button = document.getElementById("cart-close")
+            close_button?.click()
+        },
+        loadBrainTree() {
+            const plugin = document.createElement("script");
+            plugin.setAttribute(
+                "src",
+                "https://js.braintreegateway.com/web/dropin/1.42.0/js/dropin.js"
+            );
+            document.head.appendChild(plugin);
+            plugin.onload = () => {
+                this.preparePayment()
             }
-            else {
-                //create restaurant
-                const newCart = {
-                    restaurant: this.store.restaurant.name,
-                    dishes: [
-                        {
-                            id: dish.id,
-                            nome: dish.name,
-                            prezzo: dish.price,
-                            quantity: dish.quantity
+        },
+        preparePayment() {
+            var button = document.querySelector('#submit-button');
+
+            braintree.dropin.create({
+                authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
+                selector: '#dropin-container'
+            }, function (err, instance) {
+
+                button.addEventListener('click', function (event) {
+                    event.preventDefault()
+                    instance.requestPaymentMethod(function (err, payload) {
+                        if (err) {
+                            console.log(err)
                         }
-                    ]
-                };
-                this.store.cart = newCart;
-                localStorage.setItem('cart', JSON.stringify(newCart));
-            }
-            this.store.showNotification = true;
-            setTimeout(() => {
-                this.store.showNotification = false;
-            }, 3000);
+                        else {
+                            console.log(payload)
+                        }
+                    });
+                })
+            });
+
         }
     },
     mounted() {
-        this.getRestaurantInfo(this.$route.params.id);
+        this.loadBrainTree()
+        this.closeOffCanvas()
         this.store.cart = JSON.parse(localStorage.getItem("cart")) || {};
         console.log(this.store.cart);
+        this.total = this.getTotal()
+        document.getElementById("name").focus()
     },
 }
 </script>
@@ -87,29 +85,50 @@ export default {
                 </div>
 
                 <form>
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="text-black" for="name">Name</label>
                         <input type="text" class="form-control" id="name" placeholder="Enter your name">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="text-black" for="email">Email</label>
                         <input type="email" class="form-control" id="email" placeholder="Enter your email address">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="text-black" for="address">Address</label>
                         <input type="text" class="form-control" id="address"
                             placeholder="Enter the address to deliver the order">
                     </div>
 
+                    <div v-if="store.cart != {}" class="text-black mt-3">
+                        <h4>Order details of restaurant {{ store.cart.restaurant.name }}:</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Dish</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Unit price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="dish in store.cart.dishes">
+                                    <td>{{ dish.nome }}</td>
+                                    <td>{{ dish.quantity }}</td>
+                                    <td>€ {{ dish.prezzo }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h4>Total: € {{ total }}</h4>
+                    </div>
 
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div id="dropin-container"></div>
+                    <button id="submit-button" class="button button--small button--green">Purchase</button>
                 </form>
             </div>
         </div>
     </div>
-    <Modal></Modal>
 </template>
+
+
 <style scoped>
 h1 {
     color: black;
@@ -119,11 +138,37 @@ p {
     color: black;
 }
 
-.dish-img {
-    width: 100px;
+.button {
+    cursor: pointer;
+    font-weight: 500;
+    left: 3px;
+    line-height: inherit;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: inline-block;
 }
 
-.greyed {
-    opacity: 50%;
+.button--small {
+    padding: 10px 20px;
+    font-size: 0.875rem;
+}
+
+.button--green {
+    outline: none;
+    background-color: #64d18a;
+    border-color: #64d18a;
+    color: white;
+    transition: all 200ms ease;
+}
+
+.button--green:hover {
+    background-color: #8bdda8;
+    color: white;
 }
 </style>
