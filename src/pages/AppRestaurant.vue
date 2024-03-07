@@ -45,7 +45,7 @@ export default{
                     id: dish.id,
                     nome: dish.name,
                     prezzo: dish.price,
-                    quantity: dish.quantity
+                    quantity: 1
                 };
 
                 this.store.cart.dishes.push(newDish);
@@ -60,7 +60,7 @@ export default{
                             id: dish.id,
                             nome: dish.name,
                             prezzo: dish.price,
-                            quantity: dish.quantity
+                            quantity: 1
                         }
                     ]
                 };
@@ -109,8 +109,7 @@ export default{
                     <td>{{ dish.description }}</td>
                     <td>{{ dish.ingredients }}</td>
                     <td>€ {{ dish.price }}</td>
-                    <td><input  type="number" min="1" value="1" v-model="dish.quantity" required>Quantity</td>
-                    <td><button type="button" class="btn btn-success" :disabled="dish.visible == 0" @click="addToCart(dish)">Aggiungi</button></td>
+                    <td><button type="button" class="btn btn-success" :disabled="dish.visible == 0" @click="addToCart(dish)">Aggiungi al carrello</button></td>
                     </tr>
                 </tbody>
                 </table>

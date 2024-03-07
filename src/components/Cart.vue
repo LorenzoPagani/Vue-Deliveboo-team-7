@@ -99,7 +99,7 @@ export default {
             <tr v-for="item in store.cart.dishes">
               <td>{{ item.nome }}</td>
               <td>{{ item.prezzo }}</td>
-              <td><input class="form-control" type="number" min="0" v-model="item.quantity" @change="updateCart(item)"></td>
+              <td><button class="btn btn-danger" @click="item.quantity-- ; updateCart(item)">-</button><input class="form-controlc w-25 ms-1 me-1 text-center" type="number" min="0" v-model="item.quantity" @change="updateCart(item)"><button class="btn btn-primary" @click="item.quantity++ ; updateCart(item)">+</button></td>
               <td>
                 <button class="btn btn-danger" @click="deleteItem(item.id)">
                   <i class="fa fa-trash"></i>
@@ -120,5 +120,19 @@ export default {
     </div>
   </div>
 </template>
-<style scoped></style>
+<style scoped>
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+</style>
 
