@@ -12,7 +12,9 @@ export default {
             total: 0.0,
             instance: "",
             payload: "",
-            err: ""
+            err: "",
+            order_success: false,
+            order_info: ""
         };
     },
     methods: {
@@ -49,8 +51,6 @@ export default {
             }
         },
         preparePayment() {
-            var button = document.getElementById('submit-button');
-
             braintree.dropin.create({
                 authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
                 selector: '#dropin-container'
@@ -94,7 +94,12 @@ export default {
                     console.log(payload)
                     axios.post("http://localhost:8000/api/orders", data).then((risposta) => {
                         console.log(risposta)
-                        this.emptyCart()
+                        this.order_info = risposta.data
+                        this.order_success = true
+                        this.$nextTick(() => {
+                            this.emptyCart()
+                            document.getElementById("success").focus()
+                        })
                     }).catch(function (error) {
                         console.log(error)
                     })
@@ -102,28 +107,6 @@ export default {
             })
 
         }
-
-
-        /*  let data = {
-             name: document.getElementById("name").value,
-             email: document.getElementById("email").value,
-             address: document.getElementById("address").value,
-             restaurant_id: this.store.cart.restaurant.id,
-             total: this.getTotal(),
-             dishes: []
-         }
-         this.store.cart.dishes.forEach(dish => {
-             const d = {
-                 id: dish.id,
-                 quantity: dish.quantity
-             }
-             data.dishes.push(d)
-         })
-         axios.post("http://localhost:8000/api/orders", data).then(function (risposta) {
-             console.log(risposta)
-             this.emptyCart()
-     
-         }) */
     },
     mounted() {
         this.loadBrainTree()
@@ -131,7 +114,6 @@ export default {
         this.store.cart = JSON.parse(localStorage.getItem("cart")) || {};
         console.log(this.store.cart);
         this.total = this.getTotal()
-        document.getElementById("name").focus()
     },
 }
 </script>
@@ -146,7 +128,12 @@ export default {
                     <router-link :to="{ name: 'home' }" style="width:18rem;">Back to restaurants</router-link>
                 </div>
 
-                <form id="form-checkout" @submit.prevent="this.prepareForm">
+                <div v-if="this.order_success" id="success" class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Well done! The order is now confirmed</h4>
+                    <p>The order has been sent to the restaurant. Order ID {{ this.order_info.order_id }}</p>
+                </div>
+
+                <form v-if="!this.order_success" id="form-checkout" @submit.prevent="this.prepareForm()">
                     <div class="form-group mb-2">
                         <label class="text-black" for="name">Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name"
