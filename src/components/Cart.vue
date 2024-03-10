@@ -60,6 +60,7 @@ export default {
       }
 
       this.getTotal()
+      localStorage.setItem('cart', JSON.stringify(this.store.cart));
     }
   },
 
@@ -88,8 +89,11 @@ export default {
           <tbody>
             <tr v-for="item in store.cart.dishes">
               <td>{{ item.nome }}</td>
-              <td>{{ item.prezzo }}</td>
-              <td><button class="btn btn-danger" @click="item.quantity-- ; updateCart(item)">-</button><input class="form-controlc w-25 ms-1 me-1 text-center" type="number" min="0" v-model="item.quantity" @change="updateCart(item)"><button class="btn btn-primary" @click="item.quantity++ ; updateCart(item)">+</button></td>
+              <td>€{{ item.prezzo }}</td>
+              <td><button class="btn btn-danger" @click="item.quantity--; updateCart(item)">-</button><input
+                  class="form-controlc w-25 ms-1 me-1 text-center" type="number" min="0" v-model="item.quantity"
+                  @change="updateCart(item)"><button class="btn btn-primary"
+                  @click="item.quantity++; updateCart(item)">+</button></td>
               <td>
                 <button class="btn btn-danger" @click="deleteItem(item.id)">
                   <i class="fa fa-trash"></i>
@@ -132,6 +136,4 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-
 </style>
-

@@ -9,10 +9,18 @@ export default {
     data() {
         return {
             store,
-            total: 0.0
+            total: 0.0,
+            instance: "",
+            payload: "",
+            err: ""
         };
     },
     methods: {
+        emptyCart() {
+            localStorage.removeItem('cart');
+            this.store.cart = {};
+            return;
+        },
         getTotal() {
             let tot = 0;
 
@@ -41,27 +49,81 @@ export default {
             }
         },
         preparePayment() {
-            var button = document.querySelector('#submit-button');
+            var button = document.getElementById('submit-button');
 
             braintree.dropin.create({
                 authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
                 selector: '#dropin-container'
-            }, function (err, instance) {
-
-                button.addEventListener('click', function (event) {
-                    event.preventDefault()
-                    instance.requestPaymentMethod(function (err, payload) {
-                        if (err) {
-                            console.log(err)
-                        }
-                        else {
-                            console.log(payload)
-                        }
-                    });
-                })
-            });
+            }, (err, instance) => {
+                if (err) {
+                    this.err = err
+                    this.instance = ""
+                }
+                else {
+                    this.err = ""
+                    this.instance = instance
+                }
+            })
+        },
+        prepareForm() {
+            //e.preventDefault()
+            if (this.instance == "") {
+                console.log(this.err)
+                return
+            }
+            const data = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                address: document.getElementById("address").value,
+                restaurant_id: this.store.cart.restaurant.id,
+                total: this.getTotal(),
+                dishes: []
+            }
+            this.store.cart.dishes.forEach(dish => {
+                const d = {
+                    id: dish.id,
+                    quantity: dish.quantity
+                }
+                data.dishes.push(d)
+            })
+            this.instance.requestPaymentMethod((err, payload) => {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log(payload)
+                    axios.post("http://localhost:8000/api/orders", data).then((risposta) => {
+                        console.log(risposta)
+                        this.emptyCart()
+                    }).catch(function (error) {
+                        console.log(error)
+                    })
+                }
+            })
 
         }
+
+
+        /*  let data = {
+             name: document.getElementById("name").value,
+             email: document.getElementById("email").value,
+             address: document.getElementById("address").value,
+             restaurant_id: this.store.cart.restaurant.id,
+             total: this.getTotal(),
+             dishes: []
+         }
+         this.store.cart.dishes.forEach(dish => {
+             const d = {
+                 id: dish.id,
+                 quantity: dish.quantity
+             }
+             data.dishes.push(d)
+         })
+         axios.post("http://localhost:8000/api/orders", data).then(function (risposta) {
+             console.log(risposta)
+             this.emptyCart()
+     
+         }) */
     },
     mounted() {
         this.loadBrainTree()
@@ -84,19 +146,21 @@ export default {
                     <router-link :to="{ name: 'home' }" style="width:18rem;">Back to restaurants</router-link>
                 </div>
 
-                <form>
+                <form id="form-checkout" @submit.prevent="this.prepareForm">
                     <div class="form-group mb-2">
                         <label class="text-black" for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name"
+                            required>
                     </div>
                     <div class="form-group mb-2">
                         <label class="text-black" for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email address">
+                        <input type="email" class="form-control" id="email" name="email"
+                            placeholder="Enter your email address" required>
                     </div>
                     <div class="form-group mb-2">
                         <label class="text-black" for="address">Address</label>
-                        <input type="text" class="form-control" id="address"
-                            placeholder="Enter the address to deliver the order">
+                        <input type="text" class="form-control" id="address" name="address"
+                            placeholder="Enter the address to deliver the order" required>
                     </div>
 
                     <div v-if="store.cart != {}" class="text-black mt-3">
@@ -117,11 +181,12 @@ export default {
                                 </tr>
                             </tbody>
                         </table>
-                        <h4>Total: € {{ total }}</h4>
+                        <h4>Total: € <span id="total">{{ total }}</span></h4>
                     </div>
 
                     <div id="dropin-container"></div>
-                    <button id="submit-button" class="button button--small button--green">Purchase</button>
+                    <button type="submit" id="submit-button"
+                        class="button button--small button--green">Purchase</button>
                 </form>
             </div>
         </div>
