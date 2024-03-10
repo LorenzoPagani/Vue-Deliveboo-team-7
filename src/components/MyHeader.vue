@@ -28,7 +28,11 @@ export default {
       if (this.store.cart && this.store.cart.restaurant) {
 
         let cart = this.store.cart;
-        return cart.dishes.length;
+        let items = 0
+        cart.dishes.forEach(element => {
+          items = items + element.quantity
+        });
+        return items;
 
       }
     }
