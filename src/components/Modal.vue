@@ -26,12 +26,13 @@ export default {
             @click="store.showModal = false"></button>
         </div>
         <div class="modal-body">
-          <p class="text-dark">Esiste già un ordine per un altro ristorante. Vuoi cancellare il vecchio ordine?</p>
+          <p class="text-dark">There exists yet an order for a different restaurant. Do you want to delete the previous
+            order?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-            @click="store.showModal = false">Annulla</button>
-          <button type="button" class="btn btn-primary" @click="this.deleteOrders">Cancella ordine</button>
+            @click="store.showModal = false">Cancel</button>
+          <button type="button" class="btn btn-primary" @click="this.deleteOrders">Delete order</button>
         </div>
       </div>
     </div>

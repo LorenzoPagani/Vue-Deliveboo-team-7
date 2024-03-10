@@ -51,7 +51,7 @@ export default {
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center">Scegli i tipi di Ristoranti</h1>
+                <h1 class="text-center">Select Restaurants types</h1>
                 <div class="col-12 d-flex flex-wrap justify-content-center gap-2">
                     <div class="card p-2 type-badge " v-for="type in store.types" @click="selectType(type)"
                         :class="store.selected_types.includes(type) ? 'bg-success' : ''">

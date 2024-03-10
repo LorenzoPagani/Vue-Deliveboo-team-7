@@ -109,7 +109,7 @@ export default {
 
     <div class="mb-2 ms-2 me-2 d-flex justify-content-between" v-if="store.cart.restaurant">
       <button class="btn btn-danger" @click="emptyCart()">
-        Svuota carrello
+        Empty Cart
       </button>
       <button class="btn btn-primary"><router-link :to="{ name: 'checkout' }"
           style="width:18rem;">Checkout</router-link></button>

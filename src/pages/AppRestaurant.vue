@@ -100,29 +100,31 @@ export default {
                 </div>
 
                 <table class="table table-borderless">
-                <thead> 
-                    <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Picture</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Ingredients</th>
-                    <th scope="col">Price</th>
-                    <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="dish in this.store.restaurant.dishes" :class="visible(dish.visible)">
-                    <td>{{ dish.name }}</td>
-                    <td>
-                        <img v-if="!dish.picture.includes('http')" class="dish-img" :src="'http://localhost:8000/storage/' + dish.picture" alt="">
-                        <img v-else class="dish-img" :src="dish.picture" alt="">
-                    </td>
-                    <td>{{ dish.description }}</td>
-                    <td>{{ dish.ingredients }}</td>
-                    <td>€ {{ dish.price }}</td>
-                    <td><button type="button" class="btn btn-success" :disabled="dish.visible == 0" @click="addToCart(dish)">Aggiungi al carrello</button></td>
-                    </tr>
-                </tbody>
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Picture</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Ingredients</th>
+                            <th scope="col">Price</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="dish in this.store.restaurant.dishes" :class="visible(dish.visible)">
+                            <td>{{ dish.name }}</td>
+                            <td>
+                                <img v-if="!dish.picture.includes('http')" class="dish-img"
+                                    :src="'http://localhost:8000/storage/' + dish.picture" alt="">
+                                <img v-else class="dish-img" :src="dish.picture" alt="">
+                            </td>
+                            <td>{{ dish.description }}</td>
+                            <td>{{ dish.ingredients }}</td>
+                            <td>€ {{ dish.price }}</td>
+                            <td><button type="button" class="btn btn-success" :disabled="dish.visible == 0"
+                                    @click="addToCart(dish)">Add to cart</button></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
