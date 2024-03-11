@@ -24,12 +24,8 @@ export default {
           label: "Homepage",
         },
         {
-          routeName: "about",
-          label: "About us",
-        },
-        {
-          routeName: "contacts",
-          label: "contacts",
+          routeName: "owners",
+          label: "Ristoratori",
         },
       ],
     };

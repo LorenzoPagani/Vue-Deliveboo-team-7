@@ -14,10 +14,6 @@ export default {
           routeName: "owners",
           label: "Ristoratori",
         },
-        {
-          routeName: "contacts",
-          label: "Contacts",
-        },
       ],
     };
 

@@ -5,13 +5,13 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container cardcontainer">
     <div class="row">
       <div class="col-md-8 w-100 mt-4 d-flex justify-content-center">
         <div class="card bgcard">
           <div class="card-body">
             <h2 class="card-title text-center text-dark">Vuoi registrare il tuo ristorante?</h2>
-            <p class="card-text mt-3 text-dark">
+            <p class="card-text mt-4 text-dark">
              Sei un ristoratore e vuoi mostrare i tuoi piatti sulla nostra app? Crea un account gratuito ed entra a far parte di Deliveboo!
             </p>
             <div class="d-flex justify-content-center">
@@ -32,6 +32,10 @@ export default {
 p {
   color: black;
 } */
+
+.cardcontainer{
+    margin-top: 300px;
+}
 
 .bgcard{
     background-color: rgba(254, 184, 54, 0.7);
