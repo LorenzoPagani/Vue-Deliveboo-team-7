@@ -34,6 +34,6 @@ export default {
 .jumbobg {
   background-image: url("https://t3.ftcdn.net/jpg/02/79/75/74/360_F_279757406_PjHAMPHNAEyf5NvyEYlC7mJNRKHHkmCz.jpg");
   background-size: cover;
-  height: 500px;
+  height: 600px;
 }
 </style>

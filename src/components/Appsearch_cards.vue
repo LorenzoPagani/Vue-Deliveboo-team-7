@@ -82,6 +82,6 @@ h1 {
     background-color: #00000061;
     border-radius: 10px;
     margin-top: 20px;
-
+width: 100vw;
 }
 </style>
