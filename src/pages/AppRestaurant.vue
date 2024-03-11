@@ -94,47 +94,86 @@ export default {
     <div class="container">
         <div class="row">
             <div class="col-md-12 mt-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h1>Dishes of {{ this.store.restaurant.name }}</h1>
-                    <router-link :to="{ name: 'home' }" style="width:18rem;">Back to restaurants</router-link>
-                </div>
+                <div class="restaurantContainer">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1> {{ this.store.restaurant.name }}</h1>
+                        <router-link class="button-87 text-decoration-none" :to="{ name: 'home' }"
+                            style="width:18rem;">Back to
+                            restaurants</router-link>
+                    </div>
 
-                <table class="table table-borderless">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Picture</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Ingredients</th>
-                            <th scope="col">Price</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="dish in this.store.restaurant.dishes" :class="visible(dish.visible)">
-                            <td>{{ dish.name }}</td>
-                            <td>
-                                <img v-if="!dish.picture.includes('http')" class="dish-img"
-                                    :src="'http://localhost:8000/storage/' + dish.picture" alt="">
-                                <img v-else class="dish-img" :src="dish.picture" alt="">
-                            </td>
-                            <td>{{ dish.description }}</td>
-                            <td>{{ dish.ingredients }}</td>
-                            <td>€ {{ dish.price }}</td>
-                            <td><button type="button" class="btn btn-success" :disabled="dish.visible == 0"
-                                    @click="addToCart(dish)">Add to cart</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <table class="table table-borderless  myTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Picture</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Ingredients</th>
+                                <th scope="col">Price</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="dish in this.store.restaurant.dishes" :class="visible(dish.visible)">
+                                <td>{{ dish.name }}</td>
+                                <td>
+                                    <img v-if="!dish.picture.includes('http')" class="dish-img"
+                                        :src="'http://localhost:8000/storage/' + dish.picture" alt="">
+                                    <img v-else class="dish-img" :src="dish.picture" alt="">
+                                </td>
+                                <td>{{ dish.description }}</td>
+                                <td>{{ dish.ingredients }}</td>
+                                <td>€ {{ dish.price }}</td>
+                                <td><button type="button" class="btn btn-success" :disabled="dish.visible == 0"
+                                        @click="addToCart(dish)">+</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
     <Modal></Modal>
 </template>
-<style scoped>
-h1 {
-    color: black;
+<style scoped lang="scss">
+.restaurantContainer {
+    margin-top: 150px;
+    border-radius: 10px;
+    padding: 30px;
+    /* background-color:
+        #feb836d2
+        rgb(9 8 43 / 74%); */
+    background: rgb(169, 144, 193);
+    background: linear-gradient(90deg, rgba(169, 144, 193, 0.877) 0%, #000046e0 100%);
+
 }
+
+.myTable {
+
+    th,
+    td {
+        color: white;
+        background-color: transparent;
+        padding: 0, 30px;
+    }
+
+
+
+
+
+}
+
+h1 {
+    color: white;
+    background-color: #00000061;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+img {
+    border-radius: 10px;
+}
+
 
 p {
     color: black;

@@ -1,8 +1,12 @@
 <script>
 import { store } from "../store.js";
 import axios from "axios"; //importo Axios
+import Jumbo from "../components/Jumbo.vue";
 export default {
     name: "AppHome",
+    components: {
+        Jumbo,
+    },
     data() {
         return {
             store,
@@ -28,10 +32,11 @@ export default {
 </script>
 
 <template>
+    <Jumbo />
+
     <div class="container">
         <div class="row">
             <div class="col-md-12 mt-3">
-                <h1>HomePage</h1>
             </div>
         </div>
         <div class="row">
@@ -41,7 +46,8 @@ export default {
                         :to="{ name: 'restaurant', params: { id: restaurants.id } }" class="card m-2"
                         style="width:18rem;">
                         <img v-if="!restaurants.picture.includes('https')"
-                            :src="'http://localhost:8000/storage/' + restaurants.picture" class="card-img-top" alt="...">
+                            :src="'http://localhost:8000/storage/' + restaurants.picture" class="card-img-top"
+                            alt="...">
                         <img v-else :src="restaurants.picture" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ restaurants.name }}</h5>

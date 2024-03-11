@@ -50,11 +50,11 @@ export default {
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <h1 class="text-center">Select Restaurants types</h1>
+            <div class="col-12 wrapper">
+                <h1 class="text-center">Scegli Il Tuo Ristorante</h1>
                 <div class="col-12 d-flex flex-wrap justify-content-center gap-2">
                     <div class="card p-2 type-badge " v-for="type in store.types" @click="selectType(type)"
-                        :class="store.selected_types.includes(type) ? 'bg-success' : ''">
+                        :class="store.selected_types.includes(type) ? 'button-87 selected' : 'button-87'">
                         <h5>{{ type.name }}</h5>
                     </div>
                 </div>
@@ -65,5 +65,23 @@ export default {
 <style scoped lang="scss">
 .type-badge {
     cursor: pointer;
+}
+
+.selected {
+    transform: scale(0.95);
+    border: 4px solid #000046;
+}
+
+h1 {
+    color: white;
+    font-size: 3rem;
+
+}
+
+.wrapper {
+    background-color: #00000061;
+    border-radius: 10px;
+    margin-top: 20px;
+
 }
 </style>

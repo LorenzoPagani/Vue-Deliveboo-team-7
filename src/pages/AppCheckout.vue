@@ -122,8 +122,8 @@ export default {
 
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mt-3">
-                <div class="d-flex justify-content-between align-items-center">
+            <div class="wrapper col-md-12 mt-3">
+                <div class=" d-flex justify-content-between align-items-center">
                     <h1>Checkout</h1>
                     <router-link :to="{ name: 'home' }" style="width:18rem;">Back to restaurants</router-link>
                 </div>
@@ -135,22 +135,22 @@ export default {
 
                 <form v-if="!this.order_success" id="form-checkout" @submit.prevent="this.prepareForm()">
                     <div class="form-group mb-2">
-                        <label class="text-black" for="name">Name</label>
+                        <label class="" for="name">Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name"
                             required>
                     </div>
                     <div class="form-group mb-2">
-                        <label class="text-black" for="email">Email</label>
+                        <label class="" for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email"
                             placeholder="Enter your email address" required>
                     </div>
                     <div class="form-group mb-2">
-                        <label class="text-black" for="address">Address</label>
+                        <label class="" for="address">Address</label>
                         <input type="text" class="form-control" id="address" name="address"
                             placeholder="Enter the address to deliver the order" required>
                     </div>
 
-                    <div v-if="store.cart != {}" class="text-black mt-3">
+                    <div v-if="store.cart != {}" class=" mt-3">
                         <h4>Order details of restaurant {{ store.cart.restaurant.name }}:</h4>
                         <table class="table">
                             <thead>
@@ -182,12 +182,23 @@ export default {
 
 
 <style scoped>
-h1 {
-    color: black;
+.row {
+    margin-top: 150px;
+
 }
 
-p {
-    color: black;
+.wrapper,
+h4,
+label {
+    color: white;
+}
+
+.wrapper {
+    background: rgb(169, 144, 193);
+    background: linear-gradient(90deg, rgba(169, 144, 193, 0.877) 0%, #000046e0 100%);
+    border-radius: 10px;
+
+    padding: 30px;
 }
 
 .button {

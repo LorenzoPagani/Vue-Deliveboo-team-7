@@ -101,7 +101,8 @@ export default {
 
 <style scoped>
 .navbar {
-  background-color: #feb836;
+  background: rgb(254, 184, 54);
+  background: radial-gradient(circle, rgba(254, 184, 54, 1) 0%, rgba(255, 149, 0, 1) 100%);
 }
 
 .menù-items {

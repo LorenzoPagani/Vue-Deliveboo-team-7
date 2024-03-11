@@ -62,7 +62,6 @@ export default {
 <template>
   <Notification />
   <MyHeader />
-  <Jumbo />
   <router-view></router-view>
   <Cart />
   <main></main>
@@ -71,10 +70,6 @@ export default {
 <style lang="scss">
 // importo il foglio di stile generale dell'applicazione, non-scoped
 @use "./styles/general.scss";
-
-body {
-  background-size: contain;
-}
 </style>
 
 <style scoped lang="scss">
