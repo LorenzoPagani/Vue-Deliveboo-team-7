@@ -43,6 +43,9 @@ export default {
         <div class="row">
             <div class="container p-3">
                 <div class="d-flex flex-wrap justify-content-evenly" ref="restaurants">
+                    <div v-if="this.store.restaurants.length == 0" class="text-black">
+                        Nessun ristorante trovato in base alla tua selezione
+                    </div>
                     <router-link v-for="restaurants in store.restaurants"
                         :to="{ name: 'restaurant', params: { id: restaurants.id } }" class="card m-2"
                         style="width:18rem;">
