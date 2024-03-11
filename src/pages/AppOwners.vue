@@ -16,7 +16,7 @@ export default {
               parte di Deliveboo!
             </p>
             <div class="d-flex justify-content-center">
-              <a href="http://127.0.0.1:8000/register" class="card-link button-87">Clicca qui!</a>
+              <a href="http://127.0.0.1:8000/" class="card-link button-87">Clicca qui!</a>
             </div>
 
           </div>
