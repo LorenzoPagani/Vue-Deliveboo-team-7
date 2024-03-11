@@ -15,7 +15,7 @@ export default {
              Sei un ristoratore e vuoi mostrare i tuoi piatti sulla nostra app? Crea un account gratuito ed entra a far parte di Deliveboo!
             </p>
             <div class="d-flex justify-content-center">
-              <a href="http://127.0.0.1:8000/register" class="card-link button-87">Clicca qui!</a>
+              <a href="http://127.0.0.1:8000/" class="card-link button-87">Clicca qui!</a>
             </div>
 
           </div>
