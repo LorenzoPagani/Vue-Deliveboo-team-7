@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import AppHome from './pages/AppHome.vue';
-import AppAbout from './pages/AppAbout.vue';
+import AppOwners from './pages/AppOwners.vue';
 import AppContacts from './pages/AppContacts.vue';
 import AppRestaurant from "./pages/AppRestaurant.vue";
 import AppCheckout from "./pages/AppCheckout.vue";
@@ -15,9 +15,9 @@ const router = createRouter({
             component: AppHome
         },
         {
-            path: '/about',
-            name: 'about',
-            component: AppAbout
+            path: '/owners',
+            name: 'owners',
+            component: AppOwners
         },
         {
             path: '/contacts',
