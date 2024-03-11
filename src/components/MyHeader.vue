@@ -11,8 +11,8 @@ export default {
           label: "Homepage",
         },
         {
-          routeName: "about",
-          label: "About us",
+          routeName: "owners",
+          label: "Ristoratori",
         },
         {
           routeName: "contacts",
