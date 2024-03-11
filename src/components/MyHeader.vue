@@ -80,7 +80,7 @@ export default {
               Search
             </button>
           </form> -->
-          <button class="button-78 position-relative me-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-cart">
+          <button class="button-78 position-relative me-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-cart">
             <span><i class="fa-solid fa-cart-shopping fa-lg" style="color: #ffffff;"></i></span>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
               {{ this.cartItems() }}
