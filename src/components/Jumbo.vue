@@ -33,7 +33,7 @@ export default {
 <style scoped>
 .jumbobg {
   background-image: url("https://t3.ftcdn.net/jpg/02/79/75/74/360_F_279757406_PjHAMPHNAEyf5NvyEYlC7mJNRKHHkmCz.jpg");
-  background-size: cover;
-  height: 600px;
+  background-size: contain;
+  height: 720px;
 }
 </style>

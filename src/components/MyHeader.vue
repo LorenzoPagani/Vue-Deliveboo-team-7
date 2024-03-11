@@ -42,7 +42,7 @@ export default {
 
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg mynavbar">
+    <nav class="navbar navbar-expand mynavbar">
       <div class="container-fluid d-flex align-items-center justify-content-around">
         <a class="navbar-brand" href="#">
           <img class="small-logo" src="../../public/deliveboo_logo.jpeg" alt="">
@@ -58,10 +58,10 @@ export default {
         >
           <span class="navbar-toggler-icon"></span>
         </button> -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class=" navbar-collapse" id="navbarSupportedContent">
           <div class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center justify-content-between w-30">
 
-            <div class="nav-item px-4 mx-4 " v-for="(item, index) in menuItems" :key="index">
+            <div class="nav-item px-2  " v-for="(item, index) in menuItems" :key="index">
               <router-link :to="{ name: item.routeName }" class="nav-link p-3">
                 <button class="button-78"><span>{{ item.label
                     }}</span></button>
@@ -81,7 +81,7 @@ export default {
             </button>
           </form> -->
           <button class="button-78 position-relative me-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-cart">
-            <span> Cart</span>
+            <span><i class="fa-solid fa-cart-shopping fa-lg" style="color: #ffffff;"></i></span>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
               {{ this.cartItems() }}
             </span>
@@ -118,7 +118,7 @@ export default {
   box-shadow: inset 0 -3px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0%;
-  width: 100%;
+  width: 100vw;
   z-index: 1000;
 }
 </style>
