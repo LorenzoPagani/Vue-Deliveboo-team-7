@@ -87,9 +87,7 @@ export default {
             </span>
           </button>
         </div>
-        <div>
-          <a class="button-78" href="http://127.0.0.1:8000/">Restaurateurs area</a>
-        </div>
+
       </div>
     </nav>
   </header>

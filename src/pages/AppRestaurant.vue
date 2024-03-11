@@ -143,9 +143,7 @@ export default {
     /* background-color:
         #feb836d2
         rgb(9 8 43 / 74%); */
-    background: rgb(169, 144, 193);
-    background: linear-gradient(90deg, rgba(169, 144, 193, 0.877) 0%, #000046e0 100%);
-
+    background: linear-gradient(90deg, rgb(186 138 69 / 88%) 0%, rgb(234 152 55) 100%);
 }
 
 .myTable {

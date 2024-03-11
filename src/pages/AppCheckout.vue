@@ -125,7 +125,9 @@ export default {
             <div class="wrapper col-md-12 mt-3">
                 <div class=" d-flex justify-content-between align-items-center">
                     <h1>Checkout</h1>
-                    <router-link :to="{ name: 'home' }" style="width:18rem;">Back to restaurants</router-link>
+                    <router-link class="button-87 text-decoration-none" :to="{ name: 'home' }" style="width:18rem;">Back
+                        to
+                        restaurants</router-link>
                 </div>
 
                 <div v-if="this.order_success" id="success" class="alert alert-success" role="alert">
@@ -194,8 +196,7 @@ label {
 }
 
 .wrapper {
-    background: rgb(169, 144, 193);
-    background: linear-gradient(90deg, rgba(169, 144, 193, 0.877) 0%, #000046e0 100%);
+    background: linear-gradient(90deg, rgb(186 138 69 / 88%) 0%, rgb(234 152 55) 100%);
     border-radius: 10px;
 
     padding: 30px;

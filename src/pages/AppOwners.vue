@@ -10,9 +10,10 @@ export default {
       <div class="col-md-8 w-100 mt-4 d-flex justify-content-center">
         <div class="card bgcard">
           <div class="card-body">
-            <h2 class="card-title text-center text-dark">Vuoi registrare il tuo ristorante?</h2>
-            <p class="card-text mt-4 text-dark">
-             Sei un ristoratore e vuoi mostrare i tuoi piatti sulla nostra app? Crea un account gratuito ed entra a far parte di Deliveboo!
+            <h2 class="card-title text-center ">Vuoi registrare il tuo ristorante?</h2>
+            <p class="card-text mt-4 ">
+              Sei un ristoratore e vuoi mostrare i tuoi piatti sulla nostra app? Crea un account gratuito ed entra a far
+              parte di Deliveboo!
             </p>
             <div class="d-flex justify-content-center">
               <a href="http://127.0.0.1:8000/register" class="card-link button-87">Clicca qui!</a>
@@ -37,8 +38,8 @@ p {
 }
 
 .bgcard {
-  background-color: rgba(254, 184, 54, 0.7);
-  border: solid 2px orange;
+  background: linear-gradient(90deg, rgb(186 138 69 / 88%) 0%, rgb(234 152 55) 100%);
+  color: white;
 }
 
 .button-87 {
