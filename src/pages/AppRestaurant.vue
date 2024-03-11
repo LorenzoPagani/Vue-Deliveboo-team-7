@@ -93,7 +93,7 @@ export default {
 
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mt-3">
+            <div class="col-sm-12 mt-3">
                 <div class="restaurantContainer">
                     <div class="d-flex justify-content-between align-items-center">
                         <h1> {{ this.store.restaurant.name }}</h1>
@@ -105,11 +105,11 @@ export default {
                     <table class="table table-borderless  myTable">
                         <thead>
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Picture</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Ingredients</th>
-                                <th scope="col">Price</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col"></th>
+                                <th class="d-none d-md-block" scope="col">Descrizione</th>
+                                <th scope="col">Ingredienti</th>
+                                <th scope="col">Prezzo</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -121,7 +121,7 @@ export default {
                                         :src="'http://localhost:8000/storage/' + dish.picture" alt="">
                                     <img v-else class="dish-img" :src="dish.picture" alt="">
                                 </td>
-                                <td>{{ dish.description }}</td>
+                                <td class="d-none d-md-block">{{ dish.description }}</td>
                                 <td>{{ dish.ingredients }}</td>
                                 <td>€ {{ dish.price }}</td>
                                 <td><button type="button" class="btn btn-success" :disabled="dish.visible == 0"
@@ -139,7 +139,7 @@ export default {
 .restaurantContainer {
     margin-top: 150px;
     border-radius: 10px;
-    padding: 30px;
+    padding: 10px;
     /* background-color:
         #feb836d2
         rgb(9 8 43 / 74%); */
