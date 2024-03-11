@@ -5,6 +5,7 @@ import { store } from "../store.js"; //state management
 import Appsearch_cards from "./Appsearch_cards.vue";
 export default {
   name: "Jumbo",
+  emits: ['restaurantsLoaded'],
   components: {
     /* AppSearch */
     Appsearch_cards,
@@ -15,6 +16,9 @@ export default {
     };
   },
   methods: {
+    emit() {
+      this.$emit("restaurantsLoaded");
+    }
   },
 };
 </script>
@@ -24,7 +28,7 @@ export default {
     <div class="row d-flex justify-content-center position-absolute top-50 start-50 translate-middle">
       <div class="col-12">
         <!-- <AppSearch></AppSearch> -->
-        <Appsearch_cards></Appsearch_cards>
+        <Appsearch_cards @restaurantsLoaded="emit()"></Appsearch_cards>
       </div>
     </div>
   </div>
@@ -32,7 +36,7 @@ export default {
 
 <style scoped>
 .jumbobg {
-  background-image: url("https://t3.ftcdn.net/jpg/02/79/75/74/360_F_279757406_PjHAMPHNAEyf5NvyEYlC7mJNRKHHkmCz.jpg");
+  background-image: url("../assets/street-chinese-food-with-copy-space.jpg");
   background-size: contain;
   height: 720px;
 }

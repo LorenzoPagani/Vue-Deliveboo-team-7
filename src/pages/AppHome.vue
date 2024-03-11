@@ -27,27 +27,22 @@ export default {
                 return description
             }
         },
+        focus() {
+            this.$refs.restaurants.scrollIntoView({ behavior: "smooth" });
+            console.log(document.activeElement.tagName);
+
+        }
     },
 }
 </script>
 
 <template>
-    <Jumbo />
+    <Jumbo @restaurantsLoaded="focus()" />
 
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mt-3">
-                <div v-if="store.restaurants.length == 0">
-                    <div class="mt-5 d-flex align-items-center justify-content-center">
-                        <h4 class="text-black">Hai fame? Clicca sulle categorie qui sopra per trovare ciò che vuoi
-                            mangiare!</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="container p-3">
-                <div class="d-flex flex-wrap justify-content-evenly">
+                <div class="d-flex flex-wrap justify-content-evenly" ref="restaurants">
                     <router-link v-for="restaurants in store.restaurants"
                         :to="{ name: 'restaurant', params: { id: restaurants.id } }" class="card m-2"
                         style="width:18rem;">

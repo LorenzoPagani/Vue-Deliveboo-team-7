@@ -5,6 +5,7 @@ import axios from "axios" //importo Axios
 
 export default {
     name: "Appsearch_cards",
+    emits: ['restaurantsLoaded'],
     data() {
         return {
             store
@@ -34,6 +35,7 @@ export default {
             axios.get("http://localhost:8000/api/restaurants/types", { params: { "types": types } }).then(risultato => {
                 console.log(risultato);
                 this.store.restaurants = risultato.data.restaurants;
+                this.$emit('restaurantsLoaded');
             }).catch(errore => {
                 console.error(errore);
             });
@@ -82,6 +84,6 @@ h1 {
     background-color: #00000061;
     border-radius: 10px;
     margin-top: 20px;
-width: 100vw;
+    width: 100vw;
 }
 </style>
