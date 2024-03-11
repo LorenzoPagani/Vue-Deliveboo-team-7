@@ -72,7 +72,7 @@ export default {
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-cart" aria-labelledby="offcanvasLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasLabel">Cart</h5>
-      <button type="button" class="btn-close" id="cart-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button type="button" class="btn-close" id="cart-close" data-bs-dismiss="offcanvas" aria-label="Chiudi"></button>
     </div>
     <div class="offcanvas-body">
       <div v-if="store.cart.restaurant">
@@ -80,10 +80,10 @@ export default {
         <table class="table table-striped text-center">
           <thead>
             <tr>
-              <th scope="col">Dish</th>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Cancel</th>
+              <th scope="col">Piatto</th>
+              <th scope="col">Prezzo</th>
+              <th scope="col">Quantità</th>
+              <th scope="col">Elimina</th>
             </tr>
           </thead>
           <tbody>
@@ -104,12 +104,12 @@ export default {
         </table>
         Tot: {{ this.getTotal() }} €
       </div>
-      <div v-else>Cart is empty!</div>
+      <div v-else>Il carrello è vuoto!</div>
     </div>
 
     <div class="mb-2 ms-2 me-2 d-flex justify-content-between" v-if="store.cart.restaurant">
       <button class="btn btn-danger" @click="emptyCart()">
-        Empty Cart
+        Scuota carrello
       </button>
       <button class="btn btn-primary"><router-link :to="{ name: 'checkout' }"
           style="width:18rem;">Checkout</router-link></button>

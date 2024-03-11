@@ -53,7 +53,8 @@ export default {
         preparePayment() {
             braintree.dropin.create({
                 authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
-                selector: '#dropin-container'
+                selector: '#dropin-container',
+                locale: 'it_IT'
             }, (err, instance) => {
                 if (err) {
                     this.err = err
@@ -125,41 +126,40 @@ export default {
             <div class="wrapper col-md-12 mt-3">
                 <div class=" d-flex justify-content-between align-items-center">
                     <h1>Checkout</h1>
-                    <router-link class="button-87 text-decoration-none" :to="{ name: 'home' }" style="width:18rem;">Back
-                        to
-                        restaurants</router-link>
+                    <router-link class="button-87 text-decoration-none" :to="{ name: 'home' }"
+                        style="width:18rem;">Torna ai ristoranti</router-link>
                 </div>
 
                 <div v-if="this.order_success" id="success" class="alert alert-success" role="alert">
-                    <h4 class="alert-heading">Well done! The order is now confirmed</h4>
-                    <p>The order has been sent to the restaurant. Order ID {{ this.order_info.order_id }}</p>
+                    <h4 class="alert-heading">Ben fatto! L'ordine è stato confermato!</h4>
+                    <p>L'ordine è stato mandato al ristorante. ID ordine {{ this.order_info.order_id }}</p>
                 </div>
 
                 <form v-if="!this.order_success" id="form-checkout" @submit.prevent="this.prepareForm()">
                     <div class="form-group mb-2">
-                        <label class="" for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name"
-                            required>
+                        <label class="" for="name">Nome</label>
+                        <input type="text" class="form-control" id="name" name="name"
+                            placeholder="Inserisci il tuo nome" required>
                     </div>
                     <div class="form-group mb-2">
                         <label class="" for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email"
-                            placeholder="Enter your email address" required>
+                            placeholder="Inserisci il tuo indirizzo email" required>
                     </div>
                     <div class="form-group mb-2">
-                        <label class="" for="address">Address</label>
+                        <label class="" for="address">Indirizzo</label>
                         <input type="text" class="form-control" id="address" name="address"
-                            placeholder="Enter the address to deliver the order" required>
+                            placeholder="Inserisci l'indirizzo di consegna dell'ordine" required>
                     </div>
 
                     <div v-if="store.cart != {}" class=" mt-3">
-                        <h4>Order details of restaurant {{ store.cart.restaurant.name }}:</h4>
+                        <h4>Dettagli dell'ordine per il ristorante {{ store.cart.restaurant.name }}:</h4>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Dish</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Unit price</th>
+                                    <th scope="col">Piatto</th>
+                                    <th scope="col">Quantità</th>
+                                    <th scope="col">Prezzo unitario</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -170,12 +170,12 @@ export default {
                                 </tr>
                             </tbody>
                         </table>
-                        <h4>Total: € <span id="total">{{ total }}</span></h4>
+                        <h4>Totale: € <span id="total">{{ total }}</span></h4>
                     </div>
 
                     <div id="dropin-container"></div>
                     <button type="submit" id="submit-button"
-                        class="button button--small button--green">Purchase</button>
+                        class="button button--small button--green">Acquista</button>
                 </form>
             </div>
         </div>

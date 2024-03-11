@@ -21,18 +21,17 @@ export default {
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title text-dark">Order yet in cart</h5>
+          <h5 class="modal-title text-dark">Ordine già nel carrello</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
             @click="store.showModal = false"></button>
         </div>
         <div class="modal-body">
-          <p class="text-dark">There exists yet an order for a different restaurant. Do you want to delete the previous
-            order?</p>
+          <p class="text-dark">C'è già un ordine nel carrello per un ristorante differente.Vuoi cancellarlo?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-            @click="store.showModal = false">Cancel</button>
-          <button type="button" class="btn btn-primary" @click="this.deleteOrders">Delete order</button>
+            @click="store.showModal = false">Annulla</button>
+          <button type="button" class="btn btn-primary" @click="this.deleteOrders">Cancella ordine</button>
         </div>
       </div>
     </div>

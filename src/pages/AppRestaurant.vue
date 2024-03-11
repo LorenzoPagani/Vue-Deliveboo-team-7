@@ -98,8 +98,7 @@ export default {
                     <div class="d-flex justify-content-between align-items-center">
                         <h1> {{ this.store.restaurant.name }}</h1>
                         <router-link class="button-87 text-decoration-none" :to="{ name: 'home' }"
-                            style="width:18rem;">Back to
-                            restaurants</router-link>
+                            style="width:18rem;">Torna ai ristoranti</router-link>
                     </div>
 
                     <table class="table table-borderless  myTable">
