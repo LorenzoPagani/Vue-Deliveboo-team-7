@@ -37,7 +37,9 @@ export default {
 <style scoped>
 .jumbobg {
   background-image: url("../assets/street-chinese-food-with-copy-space.jpg");
-  background-size: contain;
+  background-size: cover;
+
+
   height: 720px;
 }
 </style>
